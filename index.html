@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sample One - Restaurant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <i class="fas fa-utensils preloader-icon"></i>
+            <h2 class="preloader-text">THE SAMPLE ONE</h2>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-left">
+            <button id="loginBtn" onclick="openModal('loginModal')"><i class="fas fa-user-circle"></i> Login</button>
+        </div>
+        <div class="nav-center">
+            <h1 onclick="switchTab('home')" style="cursor:pointer;">THE SAMPLE ONE</h1>
+        </div>
+        <div class="nav-right" id="navLinks">
+            <button onclick="switchTab('home')"><i class="fas fa-home"></i> Home</button>
+            <button onclick="switchTab('menu')">Menu</button>
+            <button onclick="switchTab('book')" style="color: var(--primary);"><i class="fas fa-calendar-alt"></i> Book Table</button>
+            <button onclick="switchTab('about')">About Us</button>
+            <button onclick="switchTab('review')">Reviews</button>
+            <button onclick="switchTab('contact')">Contact</button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <main>
+        <section id="home" class="page-section active">
+            <div class="hero">
+                <h2>Welcome to The Sample One</h2>
+                <p>Authentic Flavors from Ranchi, Jharkhand</p>
+                <button class="btn" style="width: 200px; margin-top: 20px;" onclick="switchTab('menu')">Order Now</button>
+            </div>
+            <div class="container">
+                <h3>Featured Dishes</h3>
+                <div class="grid" id="featured-dishes"></div>
+                
+                <div class="home-details">
+                    <h3>Visit Us</h3>
+                    <p><strong>Address:</strong> 123 Main Circular Road, Ranchi, Jharkhand 834001</p>
+                    <div class="map-container">
+                        <iframe src="https://maps.google.com/maps?q=Ranchi,+Jharkhand&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <p>Follow us on Social Media</p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <p>© 2026 The Sample One. All rights reserved.</p>
+            </footer>
+        </section>
+
+        <section id="menu" class="page-section hidden">
+            <div class="container">
+                <h2>Our Menu</h2>
+                
+                <div class="menu-controls">
+                    <input type="text" id="searchInput" placeholder="🔍 Search for a dish..." onkeyup="filterMenu()">
+                    <div class="category-filters">
+                        <button class="filter-btn active" onclick="setCategory('All', this)">All</button>
+                        <button class="filter-btn" onclick="setCategory('Starters', this)">Starters</button>
+                        <button class="filter-btn" onclick="setCategory('Main Course', this)">Main Course</button>
+                        <button class="filter-btn" onclick="setCategory('Breads', this)">Breads</button>
+                        <button class="filter-btn" onclick="setCategory('Desserts', this)">Desserts</button>
+                        <button class="filter-btn" onclick="setCategory('Beverages', this)">Beverages</button>
+                    </div>
+                </div>
+
+                <div class="grid" id="all-dishes"></div>
+            </div>
+        </section>
+
+        <section id="book" class="page-section hidden">
+            <div class="container about-container">
+                <h2>Reserve a Table</h2>
+                <p style="color: #a8b1b8; margin-bottom: 20px;">Skip the line! Book your table in advance for a perfect dining experience.</p>
+                <div class="review-form" style="max-width: 500px; margin: 0 auto; background: var(--secondary); padding: 30px; border-radius: 8px; border: 1px solid var(--primary); box-shadow: 0 10px 30px rgba(230,57,70,0.2);">
+                    <form id="reservationForm" onsubmit="submitReservation(event)">
+                        <input type="text" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #1a1c1e; color: white; border: 1px solid #4a5056; border-radius: 4px;">
+                        <input type="tel" placeholder="Mobile Number" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #1a1c1e; color: white; border: 1px solid #4a5056; border-radius: 4px;">
+                        <input type="date" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #1a1c1e; color: white; border: 1px solid #4a5056; border-radius: 4px;">
+                        <input type="time" required style="width: 100%; padding: 12px; margin-bottom: 15px; background: #1a1c1e; color: white; border: 1px solid #4a5056; border-radius: 4px;">
+                        <select required style="width: 100%; padding: 12px; margin-bottom: 20px; background: #1a1c1e; color: white; border: 1px solid #4a5056; border-radius: 4px;">
+                            <option value="">Select Guests</option>
+                            <option value="1">1 Person</option>
+                            <option value="2">2 People</option>
+                            <option value="3">3 People</option>
+                            <option value="4">4 People</option>
+                            <option value="5+">5+ People</option>
+                        </select>
+                        <button type="submit" class="btn">Confirm Reservation</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page-section hidden">
+            <div class="container about-container">
+                <h2>About Us</h2>
+                <img src="https://loremflickr.com/400/400/portrait,chef" alt="Owner" class="owner-img">
+                <blockquote>"Healthy eating isn't about strict dietary limitations... It's about feeling great, having more energy, and improving your health." - Our Chef</blockquote>
+                <p>Welcome to The Sample One. We blend tradition with modern culinary techniques, sourcing ingredients locally to serve food that nourishes both body and soul.</p>
+                <p class="disclaimer"><strong>This is a sample website just to showcase.</strong></p>
+            </div>
+        </section>
+
+        <section id="review" class="page-section hidden">
+            <div class="container">
+                <h2>Customer Reviews</h2>
+                <div class="review-layout">
+                    <div class="review-form">
+                        <h3>Leave a Review</h3>
+                        <form id="reviewForm" onsubmit="submitReview(event)">
+                            <input type="text" id="revName" placeholder="Your Name" required>
+                            <textarea id="revText" rows="4" placeholder="Your Feedback" required></textarea>
+                            <button type="submit" class="btn">Submit Review</button>
+                        </form>
+                    </div>
+                    <div class="review-list" id="review-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section hidden">
+            <div class="container contact-container">
+                <h2>Contact Information</h2>
+                <p><strong>Name:</strong> The Sample One</p>
+                <p><strong>Mobile:</strong> +91 98765 *****</p>
+                <p><strong>Email:</strong> info****@thesampleone.com</p>
+                <p><strong>Address:</strong> 123 Main Circular Road, Ranchi, Jharkhand 834001</p>
+                <div class="map-container" style="margin-top: 20px;">
+                    <iframe src="https://maps.google.com/maps?q=Ranchi,+Jharkhand&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="https://wa.me/919876543210" target="_blank" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <button class="cart-btn" onclick="openModal('cartModal')">
+        <i class="fas fa-shopping-cart"></i> <span id="cartCount">0</span>
+    </button>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">×</span>
+            <h2>Log In</h2>
+            <form id="loginForm" onsubmit="handleLogIn(event)">
+                <input type="text" id="userName" placeholder="Full Name" required>
+                <input type="tel" id="userMobile" placeholder="Mobile Number" required>
+                <input type="text" id="userLine1" placeholder="Address Line 1" required>
+                <input type="text" id="userLine2" placeholder="Address Line 2">
+                <input type="text" id="userCity" placeholder="City" value="Ranchi" required>
+                <input type="text" id="userState" placeholder="State" value="Jharkhand" required>
+                <input type="text" id="userPin" placeholder="Pincode" required>
+                <input type="text" id="userLandmark" placeholder="Landmark">
+                <button type="button" class="btn" style="background: linear-gradient(to bottom, #2ecc71 0%, #27ae60 100%); margin-bottom:10px;" onclick="getLocation()">Use Current Location</button>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cartModal')">×</span>
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="promo-section">
+                <input type="text" id="promoCode" placeholder="Promo Code">
+                <button onclick="applyPromo()" class="btn-small">Apply</button>
+                <p id="promoMessage"></p>
+            </div>
+            <div class="cart-summary">
+                <p>Subtotal: ₹<span id="subTotal">0</span></p>
+                <p>GST (18%): ₹<span id="gstAmount">0</span></p>
+                <p>Delivery: ₹<span id="deliveryCharge">20</span></p>
+                <h3>Total: ₹<span id="finalTotal">0</span></h3>
+            </div>
+            <button class="btn" onclick="proceedToCheckout()">Proceed to Pay</button>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close" onclick="closeModal('paymentModal')">×</span>
+            <h2>Select Payment Method</h2>
+            <button class="btn disabled" disabled>UPI (Currently Unavailable)</button>
+            <button class="btn disabled" disabled>Card (Currently Unavailable)</button>
+            <button class="btn" onclick="processPayment()">Pay on Cash</button>
+        </div>
+    </div>
+
+    <div id="cookingOverlay" class="overlay hidden">
+        <div class="cooking-content">
+            <div class="pan-container" id="panContainer">
+                <div class="pan">
+                    <div class="handle"></div>
+                    <div class="food"></div>
+                </div>
+                <div class="fire">
+                    <i class="fas fa-fire"></i>
+                </div>
+            </div>
+            <h2 id="cookingText">Cooking your order...</h2>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
